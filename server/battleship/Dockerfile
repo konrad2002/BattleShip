@@ -18,10 +18,10 @@ FROM debian:bookworm-slim
 RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
 
 # Copy the compiled binary
-COPY --from=builder /usr/src/app/target/release/my_service /usr/local/bin/my_service
+COPY --from=builder /usr/src/app/target/release/battleship /usr/local/bin/battleship
 
 # Expose port
 EXPOSE 3000
 
 # Run the binary
-CMD ["my_service"]
+CMD ["battleship"]
