@@ -1,5 +1,5 @@
 # Stage 1: Build the Rust application
-FROM rust:1.79 as builder
+FROM rust:nightly as builder
 
 # Create app directory
 WORKDIR /usr/src/app
