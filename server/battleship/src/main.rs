@@ -30,7 +30,7 @@ async fn main() {
         .route("/board/:side/shoot/:pos", post(shoot))
         .with_state(state);
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 8300));
+    let addr = SocketAddr::from(([0, 0, 0, 0], 8300));
     println!("Server running at http://{}", addr);
     let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
     axum::serve(listener, app)

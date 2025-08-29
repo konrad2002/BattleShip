@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/
 COPY --from=builder /usr/src/app/target/release/battleship /usr/local/bin/battleship
 
 # Expose port
-EXPOSE 3000
+EXPOSE 8300
 
 # Run the binary
 CMD ["battleship"]
