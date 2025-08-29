@@ -9,7 +9,7 @@ The following endpoints are defined and return/take the give data objects:
 
 - returns both boards modified for the viewing side
 - PARAMS:
-  - `side` is either 1 or 2
+  - `side` is either 1 or 2 (side of current player)
 - RETURN (example):
 ```json
 {
@@ -60,7 +60,7 @@ Therefore, the array `enemy` will never contain number 2. The matrix representat
 
 - sets the initial board layout at the beginning for a specified side
 - PARAMS:
-  - `side` is either 1 or 2
+  - `side` is either 1 or 2 (side of current player)
 - REQUEST BODY:
 ```json
 {
@@ -80,7 +80,7 @@ Therefore, the array `enemy` will never contain number 2. The matrix representat
 
 - shoots a bullet, the server handles hits and destroyed ships and returns the updated boards
 - PARAMS:
-  - `side` is either 1 or 2
+  - `side` is either 1 or 2 (side of current player, not the side that is shot at!)
   - `pos` is the position of the field starting to count from top left with 0
 - RETURN:
   - like `GET /boards/{side}`
