@@ -13,9 +13,8 @@ The following endpoints are defined and return/take the give data objects:
 - RETURN (example):
 ```json
 {
-  "id": 2341,
   "boards": {
-    "size": 4,
+    "size": 5,
     "player": [
       0, 1, 0, 0, 0,
       3, 3, 2, 0, 4,
@@ -79,7 +78,7 @@ Therefore, the array `enemy` will never contain number 2. The matrix representat
 
 ### `POST /board/{side}/shoot/{pos}`
 
-- shoots a 
+- shoots a bullet, the server handles hits and destroyed ships and returns the updated boards
 - PARAMS:
   - `side` is either 1 or 2
   - `pos` is the position of the field starting to count from top left with 0
