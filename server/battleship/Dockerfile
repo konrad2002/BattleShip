@@ -1,5 +1,5 @@
 # Stage 1: Build the Rust application
-FROM rust:nightly as builder
+FROM rust:nightly-bullseye-slim as builder
 
 # Create app directory
 WORKDIR /usr/src/app
