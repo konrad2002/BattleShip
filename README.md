@@ -35,7 +35,7 @@ The following endpoints are defined and return/take the give data objects:
 
 This example represents the following game state:
 
-**Player itself (left) and enemy (right)**
+**Player itself (1st) and enemy (2nd)**
 
 <img src="docs/image/ship1.png" width="140px" style="display: inline-block">
 <img src="docs/image/ship2.png" width="140px" style="display: inline-block">
