@@ -37,8 +37,8 @@ This example represents the following game state:
 
 **Player itself (left) and enemy (right)**
 
-<img src="docs/image/ship1.png" width="140px">
-<img src="docs/image/ship2.png" width="140px">
+<img src="docs/image/ship1.png" width="140px" style="display: inline-block">
+<img src="docs/image/ship2.png" width="140px" style="display: inline-block">
 
 The numbers from the list have the following meanings:
 
