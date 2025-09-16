@@ -5,7 +5,7 @@ A rust server for the game battle ship and example react client.
 
 The following endpoints are defined and return/take the give data objects:
 
-### `GET /boards/{side}`
+### `GET /board/{side}`
 
 - returns both boards modified for the viewing side
 - PARAMS:
