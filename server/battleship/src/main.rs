@@ -8,7 +8,8 @@ use axum::{routing::get, Json, Router};
 use std::net::SocketAddr;
 use std::sync::{Arc, Mutex};
 use axum::extract::{Path, State};
-use axum::routing::post;
+use axum::routing::{post};
+use tower_http::cors::{CorsLayer};
 
 #[tokio::main]
 async fn main() {
@@ -28,6 +29,7 @@ async fn main() {
         .route("/board/:side", get(get_boards_by_side))
         .route("/board/:side/init", post(init_board))
         .route("/board/:side/shoot/:pos", post(shoot))
+        .layer(CorsLayer::permissive())
         .with_state(state);
 
     let addr = SocketAddr::from(([0, 0, 0, 0], 8300));
