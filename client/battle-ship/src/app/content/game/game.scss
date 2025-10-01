@@ -1,0 +1,19 @@
+.game {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 100px);
+  grid-template-rows: repeat(5, 100px);
+  grid-gap: 10px;
+  justify-content: center;
+
+  .field {
+    background-color: #2b0c67;
+    border-radius: 15px;
+    text-align: center;
+  }
+}
