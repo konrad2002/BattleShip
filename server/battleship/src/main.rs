@@ -140,10 +140,18 @@ fn build_game(state: &AppState, side: u8) -> Game {
     let winner = state.winner.lock().unwrap().clone();
 
     // Only modify the clone, not the stored state
-    boards.player2 = boards.player2
-        .into_iter()
-        .map(|field| if field == 2 { 0 } else { field })
-        .collect();
+    if (side == 1) {
+        boards.player2 = boards.player2
+            .into_iter()
+            .map(|field| if field == 2 { 0 } else { field })
+            .collect();
+    } else {
+
+        boards.player1 = boards.player1
+            .into_iter()
+            .map(|field| if field == 2 { 0 } else { field })
+            .collect();
+    }
 
     Game { boards, winner }
 }
