@@ -6,7 +6,7 @@ use models::Boards;
 
 use axum::{routing::get, Json, Router};
 use std::net::SocketAddr;
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex, MutexGuard};
 use axum::extract::{Path, State};
 use axum::routing::{post};
 use tower_http::cors::{CorsLayer};
@@ -59,11 +59,21 @@ async fn init_board(
     {
         let mut boards = state.boards.lock().unwrap();
 
+        let len = board.len();
+
         match side {
             1 => boards.player1 = board,
             2 => boards.player2 = board,
             _ => panic!("Invalid board side: {}", side),
         }
+
+        let sqrt = (len as f64).sqrt();
+
+        if sqrt.fract() != 0.0 {
+            panic!("Length {} is not a perfect square", len);
+        }
+
+        boards.size = sqrt as u8;
 
         println!("Done!")
     }
@@ -80,10 +90,45 @@ async fn shoot(
     {
         let mut boards = state.boards.lock().unwrap();
 
-        match side {
-            1 => boards.player1[pos as usize] = 1,
-            2 => boards.player2[pos as usize] = 1,
+        let size = boards.size as usize;
+
+        let board_to_edit: &mut Vec<u8> = match side {
+            1 => &mut boards.player1,
+            2 => &mut boards.player2,
             _ => panic!("Invalid board side: {}", side),
+        };
+
+        let row = pos as usize / size;
+        let col = pos as usize % size;
+
+        let mut has_two = false;
+
+        // check neighbors: up, down, left, right
+        let directions = [(-1, 0), (1, 0), (0, -1), (0, 1)];
+        for (dr, dc) in directions {
+            let nr = row as isize + dr;
+            let nc = col as isize + dc;
+
+            if nr >= 0 && nr < size as isize && nc >= 0 && nc < size as isize {
+                let npos = (nr as usize) * size + (nc as usize);
+                if board_to_edit[npos] == 2 {
+                    has_two = true;
+                    break;
+                }
+            }
+        }
+
+        let field = &mut board_to_edit[pos as usize];
+
+        match (*field) {
+            2 => {
+                if has_two {
+                    *field = 3;
+                } else {
+                    *field = 4;
+                }
+            }
+            _ => *field = 1
         }
     }
 
@@ -91,8 +136,14 @@ async fn shoot(
 }
 
 fn build_game(state: &AppState, side: u8) -> Game {
-    let boards = state.boards.lock().unwrap().clone();
+    let mut boards = state.boards.lock().unwrap().clone();
     let winner = state.winner.lock().unwrap().clone();
+
+    // Only modify the clone, not the stored state
+    boards.player2 = boards.player2
+        .into_iter()
+        .map(|field| if field == 2 { 0 } else { field })
+        .collect();
 
     Game { boards, winner }
 }
