@@ -13,7 +13,18 @@ export class BattleShipService extends BaseService {
   }
 
   getBoard(side: number): Observable<Board> {
-    return this.apiService.get(this.API_URL, "board/1");
+    return this.apiService.get(this.API_URL, `board/${side}`);
+  }
+
+  init(side: number): Observable<Board> {
+    let initState = [
+      0,0,2,2,0,
+      0,0,0,0,0,
+      2,0,2,0,0,
+      2,0,0,2,2,
+      2,0,2,0,0,
+    ]
+    return this.apiService.post(this.API_URL, `board/${side}/init`, initState);
   }
 
   shoot(side: number, field: number): Observable<Board> {

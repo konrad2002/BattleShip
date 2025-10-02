@@ -5,9 +5,11 @@
       <h2>Player 1</h2>
       <div class="board">
         @for (field of board.boards.player1; track $index) {
-          <div class="field" (click)="shoot(1, $index)">
+          <div class="field field-{{field}}" (click)="shoot(1, $index)">
             <app-field [field]="field"></app-field>
           </div>
+        } @empty {
+          <button (click)="initBoard(1)">Init</button>
         }
       </div>
     </div>
@@ -16,9 +18,11 @@
       <h2>Player 2</h2>
       <div class="board">
         @for (field of board.boards.player2; track field) {
-          <div class="field" (click)="shoot(2, $index)">
+          <div class="field field-{{field}}" (click)="shoot(2, $index)">
             <app-field [field]="field"></app-field>
           </div>
+        } @empty {
+          <button (click)="initBoard(2)">Init</button>
         }
       </div>
     </div>

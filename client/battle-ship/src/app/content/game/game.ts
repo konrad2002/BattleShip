@@ -30,4 +30,10 @@ export class Game implements OnInit {
       this.board = shoots;
     })
   }
+
+  initBoard(side: number) {
+    this.battleShipService.init(side).subscribe(board => {
+      this.board = board;
+    })
+  }
 }
